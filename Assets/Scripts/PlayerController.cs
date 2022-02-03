@@ -8,6 +8,7 @@ using UnityEngine.Serialization;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 10.0f;
+    [SerializeField] private GameObject destroyParticle;
 
     private Vector3 startPosition;
     private const string EnemyTag = "Enemy";
@@ -72,6 +73,8 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
+        var obj = Instantiate(destroyParticle);
+        obj.transform.position = transform.position;
         ChangeState(State.die);
     }
 

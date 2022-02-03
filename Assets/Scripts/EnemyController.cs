@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float deathY = -11.0f;
+    [SerializeField] private GameObject destroyParticle;
     private Rigidbody2D _rigidbody2D;
     private const string PlayerBulletTag = "PlayerBullet";
     public UnityEvent OnHit { get; private set; }
@@ -30,7 +31,8 @@ public class EnemyController : MonoBehaviour
 
     void Die()
     {
-        // print("Die");
+        var obj = Instantiate(destroyParticle);
+        obj.transform.position = transform.position;
         gameObject.SetActive(false);
     }
 

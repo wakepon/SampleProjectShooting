@@ -625,9 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  onDie:
-    m_PersistentCalls:
-      m_Calls: []
+  destroyParticle: {fileID: 527081737722909669, guid: 22a52df0ae5db4010898a9521d278f9b, type: 3}
 --- !u!1 &1621548015
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,6 +785,3 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2951665288176509074, guid: 8e194e99ffb1f42aeaaaf15ae0d7715f, type: 3}
   poolSize: 50
   birthInterval: 0.5
-  onHit:
-    m_PersistentCalls:
-      m_Calls: []
