@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text scoreText;
     [SerializeField] private Text failedText;
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private EnemyManager enemyManager;
 
     enum State
     {
@@ -20,13 +22,22 @@ public class GameManager : MonoBehaviour
     private float _stateTimer = 0.0f;
     private const float DeadY = -10.0f;
     private int score = 0;
-    
+
+    private void Start()
+    {
+        ChangeState(State.ready);
+        enemyManager.OnHit.AddListener(() => { score++; });
+        playerController.OnDie.AddListener(() => { ChangeState(State.result); });
+    }
+
     void Update()
     {
         switch (_state)
         {
             case State.ready:
                 failedText.gameObject.SetActive(false);
+                enemyManager.Clear();
+                enemyManager.gameObject.SetActive(true);
                 playerController.ReadyToStart();
                 score = 0;
                 scoreText.text = score.ToString();
@@ -34,18 +45,15 @@ public class GameManager : MonoBehaviour
                 break;
             case State.run:
                 scoreText.text = score.ToString();
-                // if (playerController.transform.position.y < DeadY)
-                // {
-                //     ChangeState(State.result);
-                //     playerController.Stop();
-                // }
                 break;
             case State.result:
                 failedText.gameObject.SetActive(true);
-                if (_stateTimer > 2.0f)
+                enemyManager.gameObject.SetActive(false);
+                if (_stateTimer > 1.0f && Input.anyKeyDown)
                 {
                     ChangeState(State.ready);
                 }
+
                 break;
         }
 
