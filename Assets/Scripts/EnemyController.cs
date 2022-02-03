@@ -31,15 +31,20 @@ public class EnemyController : MonoBehaviour
 
     void Die()
     {
+        gameObject.SetActive(false);
+    }
+
+    void BirthDestroyParticle()
+    {
         var obj = Instantiate(destroyParticle);
         obj.transform.position = transform.position;
-        gameObject.SetActive(false);
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.CompareTag(PlayerBulletTag))
         {
+            BirthDestroyParticle();
             Die();
             OnHit.Invoke();
         }
