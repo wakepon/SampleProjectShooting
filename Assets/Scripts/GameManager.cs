@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
 
     private State _state = State.ready;
     private float _stateTimer = 0.0f;
-    private const float DeadY = -10.0f;
     private int score = 0;
 
     private void Start()
